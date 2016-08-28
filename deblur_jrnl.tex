@@ -224,8 +224,8 @@
 %
 
 \author{Xiaoxin Fang, Bin Sheng
-       
-\thanks{X. Fang is at Shanghai Jiao Tong Uinversig}}% 
+
+\thanks{X. Fang is at Shanghai Jiao Tong Uinversig}}%
 
 % note the % following the last \IEEEmembership and also \thanks -
 % these prevent an unwanted space from occurring between the last author name
@@ -320,6 +320,20 @@ One problem in taking depth into consideration is that most depth images capture
 The remainder of this paper is organized as follows: ... to be continued.
 
 \section{Related Work}
+There are two major categories of image deblurring: blind deblurring and non-blind deblurring, depending on whether the point spread function(PSF) is given. Since the PSFs can be uniform or non-uniform, image deblurring can be further categorized into spatial-invariant or spatial-variant problems. Most previous work are focused on the blurring models with spatial-invariant PSF.
+
+Non-blind deblurring methods can restore latent images with blur images and the corresponding PSF given. Blurring images in these cases can be synthesised with the ground truth blurring kernel. Traditional algorithms such as Wiener filter[2]¡¢Richardson-Lucy algorithm [3] all tried to minimized the difference between the convolution results of latent images and the blurred ones. These methods suffer from the problem of ring artifacts because of the loss of high frequency details in the blurred image. Also, noise will be amplified in the optimization and deconvolution process. To handle these problem, regulation terms are used to constrain the restored image. Tikhonov regulation used the square of pixel intensity and Gaussian regulation used the square of the image gradient. Chan and Wong [4] proposed to use the L1 norm of the image gradient as the regularization term, that is, the Laplacian term. Levin et al.[5] extended this method, and make the regularization term can be any power of the image gradient and call it as the Hyper-Laplacian term. Later [6] set threads and apply different terms for different gradient values.
+
+Compared to blind deblurring, non-blind deblurring methods have a new process to estimate the blurring kernel directly from the blurred image.
+Tradition method like [4] applied the method of Laplician regularization term on estimating PSF. [8] pointed out that this method may have the problem of making the deblurring results the same as the source blurred image, and so the PSF is just one point with value one in the center. So [9] proposed the approach to estimate the PSF according to the transparency of the blurred object edges. Recent method such as [6] and [10] combined the deblurring and kernel estimation together and perform these two process iteratively to obtain the final latent image. Fourier Transformation [11] or Iteratively Re-weighted Least Squares (IRLS)[12] can be used in solve these optimization problem. But these methods cannot handle images with spatial-variant PSFs.
+
+Above methods used the blur image as the only image reference, so have no enough information about the latent image. The deblurring quality varies from case to case and it's not robust enough. To get more details about clear images, [13] used the high-noised clear image captured with short exposure time to guide the deblurring process. [14] took two images
+with different resolution use low-resolution high-frequency image as guidance to restore the high-resolution blurred ones. [15] use three different camera models to improve image quality. However, these methods require complicate devices to get the source input.
+
+Recently, [Bardsley et al. 2006] proposed the method to estimate spatially variant kernel. Image segmentation are used in [Levin 2006] to set different PSFs for different layers. But these methods cannot solve the problem that each pixel has one PSF. Besides, with the development of artificial intelligence, machine learning is also used in [17] and [18] to do deblurring. But learning methods require the training set and the testing set should have similar blurring kernel, otherwise the deblurring result is useless. 
+
+Our work based on the projection motion model by [P. Tan] and so achieve pixel level PSFs. We also add depth values to help improve the deblurring results of real world scenes. Unlike [16] which use depth to segment the image into layers, our work directly apply depth value of each pixel to help deblur this pixel itself. Although our work is non-blind deblurring method based on RL algorithm[3], our method can be extends to real cases with kernel estimation under user assistance.
+
 
 
 \section{Conclusion}
@@ -345,9 +359,6 @@ The conclusion goes here.
 
 
 \appendices
-\section{Proof of the First Zonklar Equation}
-Appendix one text goes here.
-
 % you can choose not to have a title for an appendix
 % if you want by leaving the argument blank
 \section{}
@@ -412,22 +423,16 @@ Tai Y W, Tan P, Brown M S. Richardson-Lucy deblurring for scenes under a project
 %\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
 % or if you just want to reserve a space for a photo:
 
-\begin{IEEEbiography}{Michael Shell}
+\begin{IEEEbiography}{Xiaoxin Fang}
 Biography text here.
 \end{IEEEbiography}
 
 % if you will not have a photo at all:
-\begin{IEEEbiographynophoto}{John Doe}
+\begin{IEEEbiographynophoto}{Bin Sheng}
 Biography text here.
 \end{IEEEbiographynophoto}
 
-% insert where needed to balance the two columns on the last page with
-% biographies
-%\newpage
 
-\begin{IEEEbiographynophoto}{Jane Doe}
-Biography text here.
-\end{IEEEbiographynophoto}
 
 % You can push biographies down or up by placing
 % a \vfill before or after them. The appropriate
